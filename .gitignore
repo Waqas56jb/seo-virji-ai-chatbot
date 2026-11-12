@@ -1,0 +1,17 @@
+node_modules/
+dist/
+dist-widget/
+.env
+.env.local
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+
+# server
+.env.*
+!.env.example
+coverage/
+
+# private brief (contains real credentials) - never commit
+backend  prompt

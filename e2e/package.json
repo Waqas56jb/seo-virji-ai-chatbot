@@ -1,0 +1,12 @@
+{
+  "name": "seo-virji-e2e",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:responsive": "playwright test responsive"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
+}

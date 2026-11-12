@@ -1,0 +1,26 @@
+{
+  "name": "seo-virji-chatbot-client",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SEO Virji AI Consultant — embeddable chatbot widget and demo host page.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --mode widget",
+    "build:demo": "vite build",
+    "build:widget": "vite build --mode widget",
+    "preview": "vite preview",
+    "preview:widget": "vite preview --mode widget --port 4174",
+    "build:deploy": "vite build && vite build --mode widget && node scripts/assemble-dist.mjs"
+  },
+  "dependencies": {
+    "framer-motion": "^11.11.17",
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.11"
+  }
+}

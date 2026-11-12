@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(43, 63, 196, 0.25), transparent 70%),
+    radial-gradient(50% 40% at 50% 100%, rgba(201, 161, 50, 0.12), transparent 70%),
+    var(--navy-900);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 32px 28px;
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 161, 50, 0.2);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.brand img {
+  border-radius: 14px;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--navy);
+}
+
+.brandName b {
+  font-weight: 800;
+}
+
+.brandSub {
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: var(--text-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.passwordWrap {
+  position: relative;
+  display: block;
+}
+
+.passwordWrap input {
+  padding-right: 44px;
+}
+
+.eye {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--text-3);
+}
+
+.eye:hover {
+  background: var(--line-2);
+  color: var(--text);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--red-50);
+  color: var(--red);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.foot {
+  margin-top: 20px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  .card {
+    padding: 28px 20px 22px;
+  }
+}

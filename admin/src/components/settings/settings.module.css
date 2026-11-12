@@ -1,0 +1,832 @@
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.aside {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.asideLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.asideNote {
+  font-size: 12.5px;
+  color: var(--text-3);
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aside {
+    position: static;
+    order: 2;
+  }
+}
+
+/* Card */
+.card {
+  min-width: 0;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.cardIcon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--navy);
+  color: var(--gold);
+  flex: none;
+}
+
+.cardHeadText {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardBody {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 760px) {
+  .grid2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cardBody {
+    padding: 18px;
+  }
+  .cardHead {
+    padding: 16px 18px;
+  }
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.divider {
+  height: 1px;
+  background: var(--line-2);
+  margin: 2px 0;
+}
+
+.subLabel {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: -10px;
+}
+
+.subLabel span {
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.toggleBox {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+}
+
+/* Option cards */
+.optionCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+
+.option:hover {
+  border-color: #d6d2c6;
+}
+
+.option:focus-within {
+  box-shadow: 0 0 0 3px rgba(201, 161, 50, 0.25);
+}
+
+.optionActive,
+.optionActive:hover {
+  border-color: var(--navy);
+  background: var(--navy-50);
+  box-shadow: inset 0 0 0 1px var(--navy);
+}
+
+.optionTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy);
+}
+
+.optionLabel {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.optionDescription {
+  font-size: 12.5px;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+.radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid #cfcdc6;
+  flex: none;
+  transition: border 0.15s;
+}
+
+.optionActive .radio {
+  border: 5px solid var(--gold);
+  background: #fff;
+}
+
+/* Segmented */
+.segmented {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: 12px;
+  background: var(--line-2);
+  max-width: 100%;
+}
+
+.segmented .option {
+  flex-direction: row;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  padding: 0 18px;
+  height: 36px;
+  align-items: center;
+  border-radius: 9px;
+}
+
+.segmented .option .optionLabel {
+  color: var(--text-2);
+  font-size: 13.5px;
+}
+
+.segmented .optionActive {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.segmented .optionActive .optionLabel {
+  color: var(--navy);
+}
+
+@media (max-width: 480px) {
+  .segmented {
+    display: flex;
+  }
+  .segmented .option {
+    flex: 1;
+    padding: 0 8px;
+  }
+}
+
+/* Check chips */
+.checkChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.checkChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.checkChip:hover {
+  border-color: #d6d2c6;
+}
+
+.checkChip:focus-within {
+  box-shadow: 0 0 0 3px rgba(201, 161, 50, 0.25);
+}
+
+.checkBox {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1.5px solid #cfcdc6;
+  color: transparent;
+  transition: all 0.15s;
+}
+
+.checkChipOn {
+  border-color: rgba(11, 16, 80, 0.3);
+  background: var(--navy-50);
+}
+
+.checkChipOn .checkBox {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--gold);
+}
+
+/* Colour picker */
+.color {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex: none;
+}
+
+.swatch input {
+  position: absolute;
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.swatch:focus-within {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.color .hex {
+  flex: 1 1 100px;
+  width: auto;
+  max-width: 140px;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  text-transform: uppercase;
+}
+
+.presets {
+  display: flex;
+  gap: 6px;
+}
+
+.preset {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s;
+}
+
+.preset:hover {
+  transform: scale(1.08);
+}
+
+.presetActive {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Logo */
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.logoBox {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  box-shadow: inset 0 0 0 1px rgba(201, 161, 50, 0.5);
+}
+
+.logoBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logoActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* WhatsApp CTA preview */
+.waPreview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--cream);
+  border: 1px dashed #e6d6af;
+  flex-wrap: wrap;
+}
+
+.waPreviewLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.waButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 9px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  max-width: 100%;
+}
+
+.waButton > span:first-child {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--whatsapp);
+  color: #fff;
+  flex: none;
+}
+
+.waButton strong {
+  display: block;
+  font-size: 14px;
+}
+
+.waButton small {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.waOff {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+/* Save bar */
+.saveBar {
+  position: sticky;
+  bottom: 16px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 12px 12px 12px 20px;
+  border-radius: 16px;
+  background: var(--navy);
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+.saveBar p {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.saveBar p::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--yellow);
+  vertical-align: 1px;
+}
+
+.saveBar :global(.btn-ghost) {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.saveBar :global(.btn-ghost):hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .saveBar {
+    flex-wrap: wrap;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    padding: 12px;
+  }
+  .saveBar p {
+    flex-basis: 100%;
+  }
+  .saveBar :global(.btn) {
+    flex: 1;
+  }
+}
+
+.demoCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+
+.demoCard p {
+  flex: 1;
+  min-width: 220px;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+
+.demoCard b {
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------------
+   Live preview (mini widget)
+------------------------------------------------------------------- */
+.preview {
+  --p: #0b1050;
+  --a: #c9a132;
+  padding: 18px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(43, 63, 196, 0.06), transparent 50%),
+    var(--cream);
+  border: 1px solid #f0e4c9;
+}
+
+.pvWindow {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 24px 50px -24px rgba(11, 16, 80, 0.45), 0 0 0 1px rgba(11, 16, 80, 0.06);
+}
+
+.pvHead {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  background: var(--p);
+  color: #fff;
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--a) 60%, transparent);
+}
+
+.pvLogo {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: var(--p);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a) 55%, transparent), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  color: var(--a);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.pvLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.pvPresence {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid var(--p);
+}
+
+.pvTitle {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pvTitle strong {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+}
+
+.pvTitle span {
+  display: block;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pvOnline,
+.pvAway {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  vertical-align: 1px;
+}
+
+.pvAway {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.pvMin {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pvBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 12px;
+  min-height: 230px;
+}
+
+.pvMsg {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+}
+
+.pvAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex: none;
+  background: radial-gradient(circle, var(--a) 0 22%, var(--p) 24%);
+}
+
+.pvMsg p {
+  max-width: 86%;
+  padding: 9px 11px;
+  border-radius: 4px 14px 14px 14px;
+  background: #faf9f6;
+  border: 1px solid #f2efe9;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pvUser {
+  justify-content: flex-end;
+}
+
+.pvUser p {
+  background: var(--p);
+  border-color: transparent;
+  color: #fff;
+  border-radius: 14px 14px 4px 14px;
+}
+
+.pvChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding-left: 29px;
+}
+
+.pvChips span {
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--p) 18%, white);
+  color: var(--p);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.pvCta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 29px;
+  padding: 7px 10px 7px 7px;
+  border-radius: 11px;
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  max-width: 230px;
+}
+
+.pvCtaIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--whatsapp);
+  color: #fff;
+  flex: none;
+}
+
+.pvCtaText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pvCtaText strong {
+  font-size: 12px;
+}
+
+.pvCtaText small {
+  font-size: 10.5px;
+  color: var(--text-3);
+}
+
+.pvComposer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 10px 10px;
+  padding: 5px 5px 5px 12px;
+  border-radius: 999px;
+  background: #faf9f6;
+  border: 1px solid var(--line);
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+
+.pvComposer i {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--a);
+  color: var(--p);
+}
+
+.pvLauncherRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.pvLeft {
+  justify-content: flex-start;
+}
+
+.pvLauncher {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--p);
+  box-shadow: 0 10px 22px -10px color-mix(in srgb, var(--p) 80%, transparent), inset 0 0 0 3px var(--p),
+    inset 0 0 0 4px color-mix(in srgb, var(--a) 55%, transparent);
+}
+
+/* Chatbot enabled switch (off state) */
+.toggleBoxOff {
+  background: var(--red-50);
+  border-color: #f6d9c8;
+}
+
+/* AI & Knowledge */
+.warnNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff6d6;
+  border: 1px solid #f3e2a4;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b4e00;
+}
+
+.warnNote svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.range {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--navy);
+  height: 24px;
+  cursor: pointer;
+}
+
+.rangeNumber {
+  width: 96px;
+  flex: none;
+}
+
+.narrowInput {
+  max-width: 160px;
+}
+
+@media (max-width: 640px) {
+  .narrowInput {
+    max-width: none;
+  }
+}

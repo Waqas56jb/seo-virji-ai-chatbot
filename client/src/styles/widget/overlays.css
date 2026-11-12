@@ -1,0 +1,295 @@
+/* ------------------------------------------------------------------
+   Overlays: WhatsApp handoff sheet + confirm dialog
+------------------------------------------------------------------- */
+.sv-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(11, 16, 80, 0.38);
+  backdrop-filter: blur(2px);
+}
+
+.sv-overlay--center {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.sv-sheet {
+  position: relative;
+  width: 100%;
+  max-height: 92%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 14px 24px calc(22px + var(--sv-safe-bottom));
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -20px 50px -20px rgba(11, 16, 80, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* The sheet scrolls; its children must keep their natural height. */
+.sv-sheet > * {
+  flex-shrink: 0;
+}
+
+.sv-window[data-expanded='true'] .sv-sheet {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.sv-sheet-grip {
+  width: 40px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--sv-line);
+  margin-bottom: 18px;
+}
+
+.sv-sheet-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--sv-text-3);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.sv-sheet-close:hover {
+  background: var(--sv-line-2);
+  color: var(--sv-text);
+}
+
+.sv-handoff-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  background: var(--sv-whatsapp);
+  color: #fff;
+  box-shadow: 0 14px 28px -14px rgba(31, 168, 85, 0.9), 0 0 0 6px rgba(31, 168, 85, 0.1);
+  margin-bottom: 16px;
+}
+
+.sv-handoff-badge--done {
+  background: var(--sv-primary);
+  color: var(--sv-accent);
+  box-shadow: 0 14px 28px -14px rgba(11, 16, 80, 0.8), 0 0 0 6px var(--sv-accent-soft);
+}
+
+.sv-sheet-title {
+  font-family: var(--sv-font-display);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sv-primary);
+}
+
+.sv-sheet-text {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--sv-text-2);
+  max-width: 340px;
+}
+
+.sv-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin-top: 18px;
+  text-align: left;
+}
+
+.sv-field-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sv-text);
+}
+
+.sv-field-label em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--sv-text-3);
+}
+
+.sv-field input {
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid var(--sv-line);
+  background: var(--sv-surface-2);
+  font-size: 15px;
+  transition: border-color 0.16s, box-shadow 0.16s, background-color 0.16s;
+}
+
+.sv-field input:focus {
+  outline: none;
+  background: #fff;
+  border-color: color-mix(in srgb, var(--sv-primary) 35%, white);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--sv-accent) 16%, transparent);
+}
+
+.sv-handoff-summary {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: var(--sv-r-md);
+  background: var(--sv-cream);
+  border: 1px solid color-mix(in srgb, var(--sv-accent) 22%, white);
+  text-align: left;
+}
+
+.sv-handoff-summary-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--sv-accent) 75%, black);
+  margin-bottom: 6px;
+}
+
+.sv-handoff-summary ul {
+  list-style: none;
+}
+
+.sv-handoff-summary li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.sv-handoff-summary li span {
+  color: var(--sv-text-3);
+  flex: none;
+}
+
+.sv-handoff-summary li strong {
+  font-weight: 600;
+  color: var(--sv-text);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.sv-preview-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sv-text-2);
+}
+
+.sv-preview-toggle:hover {
+  color: var(--sv-primary);
+}
+
+.sv-preview-toggle svg {
+  transition: transform 0.2s;
+}
+
+.sv-preview-toggle .is-flipped {
+  transform: rotate(180deg);
+}
+
+.sv-message-preview {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 14px 14px 4px 14px;
+  background: #e7fbe9;
+  border: 1px solid #c9eecd;
+  color: #183b22;
+  font-family: var(--sv-font);
+  font-size: 12.5px;
+  line-height: 1.55;
+  text-align: left;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sv-sheet .sv-btn--whatsapp {
+  margin-top: 18px;
+}
+
+.sv-handoff-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--sv-text-3);
+}
+
+.sv-handoff-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 6px 0 2px;
+}
+
+.sv-handoff-fallback {
+  margin: 14px 0 18px;
+}
+
+/* Confirm dialog */
+.sv-dialog {
+  width: 100%;
+  max-width: 320px;
+  padding: 22px;
+  border-radius: var(--sv-r-lg);
+  background: #fff;
+  box-shadow: var(--sv-shadow-lg);
+}
+
+.sv-dialog-title {
+  font-family: var(--sv-font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sv-primary);
+}
+
+.sv-dialog-text {
+  margin-top: 6px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--sv-text-2);
+}
+
+.sv-dialog-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.sv-dialog-actions .sv-btn {
+  flex: 1;
+}
+
+.sv-handoff-error {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.sv-spinner--light {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+}

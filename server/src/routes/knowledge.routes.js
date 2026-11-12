@@ -1,0 +1,24 @@
+import { Router } from 'express';
+import { asyncHandler as h } from '../utils/response.js';
+import { validate } from '../middleware/validation.middleware.js';
+import { requireAdmin, requireEditor } from '../middleware/admin-auth.middleware.js';
+import * as v from '../validators/knowledge.validator.js';
+import * as c from '../controllers/knowledge.controller.js';
+
+const r = Router();
+r.use(requireAdmin);
+r.get('/faq', h(c.listFaqs));
+r.post('/faq', requireEditor, validate({ body: v.createFaq }), h(c.createFaq));
+r.patch('/faq/:id', requireEditor, validate({ params: v.idParam, body: v.updateFaq }), h(c.updateFaq));
+r.delete('/faq/:id', requireEditor, validate({ params: v.idParam }), h(c.deleteFaq));
+r.post('/reindex', requireEditor, h(c.reindex));
+r.post('/retry-embeddings', requireEditor, h(c.retryEmbeddings));
+r.get('/', validate({ query: v.listQuery }), h(c.list));
+r.post('/', requireEditor, validate({ body: v.createSource }), h(c.create));
+r.get('/:id', validate({ params: v.idParam }), h(c.get));
+r.patch('/:id', requireEditor, validate({ params: v.idParam, body: v.updateSource }), h(c.update));
+r.patch('/:id/status', requireEditor, validate({ params: v.idParam, body: v.sourceStatus }), h(c.setStatus));
+r.post('/:id/reprocess', requireEditor, validate({ params: v.idParam }), h(c.reprocess));
+r.post('/:id/recrawl', requireEditor, validate({ params: v.idParam, body: v.recrawlSource }), h(c.recrawl));
+r.delete('/:id', requireEditor, validate({ params: v.idParam }), h(c.remove));
+export default r;

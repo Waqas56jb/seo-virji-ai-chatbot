@@ -1,0 +1,308 @@
+/* ------------------------------------------------------------------
+   Floating launcher + teaser bubble
+------------------------------------------------------------------- */
+.sv-launcher-wrap {
+  position: fixed;
+  bottom: calc(24px + var(--sv-safe-bottom));
+  right: 24px;
+  /* Teaser sits beside the launcher (not above it), so the space above stays free for
+     another floating button such as a WhatsApp icon. */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.sv-pos-left .sv-launcher-wrap {
+  right: auto;
+  left: 24px;
+  flex-direction: row-reverse;
+}
+
+.sv-launcher {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  isolation: isolate;
+  /* deep navy orb with a soft top-left light */
+  background:
+    radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--sv-primary) 55%, #4b5bd6) 0%, transparent 60%),
+    radial-gradient(circle at 70% 85%, color-mix(in srgb, var(--sv-primary) 80%, #000) 0%, transparent 70%),
+    var(--sv-primary);
+  box-shadow: 0 16px 34px -10px color-mix(in srgb, var(--sv-primary) 75%, transparent),
+    0 4px 12px rgba(11, 16, 80, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  pointer-events: auto;
+  transition: transform 0.3s var(--sv-ease), box-shadow 0.3s var(--sv-ease);
+  animation: sv-float 4.5s ease-in-out infinite;
+}
+
+/* rotating gold ring (conic gradient masked to a 2px ring) */
+.sv-launcher::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--sv-accent) 70deg,
+    color-mix(in srgb, var(--sv-accent) 40%, #fff) 110deg,
+    transparent 180deg,
+    color-mix(in srgb, var(--sv-accent) 55%, transparent) 270deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: sv-spin 6s linear infinite;
+  transition: opacity 0.25s;
+  z-index: -1;
+}
+
+/* inner hairline */
+.sv-launcher::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+/* breathing gold halo that invites a click */
+.sv-launcher-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: -2;
+  border: 2px solid color-mix(in srgb, var(--sv-accent) 70%, transparent);
+  animation: sv-halo 2.8s var(--sv-ease) infinite;
+  pointer-events: none;
+}
+
+.sv-launcher:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 20px 40px -10px color-mix(in srgb, var(--sv-primary) 80%, transparent),
+    0 6px 16px rgba(11, 16, 80, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  animation-play-state: paused;
+}
+
+.sv-launcher:hover .sv-glyph {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.sv-launcher.is-open {
+  animation: none;
+}
+
+.sv-launcher.is-open::before {
+  opacity: 0;
+}
+
+/* glyph: typing dots + twinkling sparkle */
+.sv-glyph {
+  display: block;
+  overflow: visible;
+  transition: transform 0.3s var(--sv-ease);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+}
+
+.sv-glyph-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sv-typing-dot 1.6s ease-in-out infinite;
+}
+
+.sv-glyph-dot:nth-of-type(2) {
+  animation-delay: 0.18s;
+}
+
+.sv-glyph-dot:nth-of-type(3) {
+  animation-delay: 0.36s;
+}
+
+.sv-glyph-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sv-twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes sv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sv-halo {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes sv-typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  30% {
+    transform: translateY(-1.6px);
+    opacity: 1;
+  }
+}
+
+@keyframes sv-twinkle {
+  0%,
+  100% {
+    transform: scale(0.85) rotate(0deg);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.15) rotate(45deg);
+    opacity: 1;
+  }
+}
+
+.sv-launcher:focus-visible {
+  outline: 3px solid var(--sv-accent);
+  outline-offset: 3px;
+}
+
+.sv-launcher-icon {
+  display: grid;
+  place-items: center;
+}
+
+.sv-launcher-icon > span {
+  display: grid;
+  place-items: center;
+}
+
+.sv-launcher-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sv-accent);
+  border: 2.5px solid #fff;
+}
+
+.sv-launcher-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--sv-accent);
+  opacity: 0;
+  animation: sv-ping 2.4s var(--sv-ease) infinite;
+}
+
+/* Uses the individual `translate` property so it composes with the hover `transform`. */
+@keyframes sv-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+@keyframes sv-ping {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+/* Teaser */
+.sv-teaser {
+  position: relative;
+  max-width: min(260px, calc(100vw - 110px));
+  margin-bottom: 6px;
+  pointer-events: auto;
+  background: #fff;
+  border-radius: 18px 18px 6px 18px;
+  box-shadow: var(--sv-shadow-md), 0 0 0 1px rgba(11, 16, 80, 0.05);
+}
+
+.sv-pos-left .sv-teaser {
+  border-radius: 18px 18px 18px 6px;
+}
+
+.sv-teaser-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 36px 14px 16px;
+  border-radius: inherit;
+}
+
+.sv-teaser-title {
+  font-family: var(--sv-font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--sv-primary);
+}
+
+.sv-teaser-text {
+  font-size: 13.5px;
+  color: var(--sv-text-2);
+  line-height: 1.45;
+}
+
+.sv-teaser-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--sv-text-3);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.sv-teaser-close:hover {
+  background: var(--sv-line-2);
+  color: var(--sv-text);
+}
+
+@media (max-width: 520px) {
+  .sv-launcher-wrap {
+    right: 16px;
+    bottom: calc(16px + var(--sv-safe-bottom));
+  }
+  .sv-pos-left .sv-launcher-wrap {
+    left: 16px;
+  }
+  .sv-launcher {
+    width: 58px;
+    height: 58px;
+  }
+  /* The chat is full-screen on phones, so the launcher steps aside. */
+  .sv-app[data-open='true'] .sv-launcher-wrap {
+    display: none;
+  }
+}
